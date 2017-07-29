@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="2dp">
 
     <!--
@@ -14,23 +15,42 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"/>
         -->
-    <com.example.sonel.newyorktimessearch.search.ResizableImageView
-        android:id="@+id/imArticle"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:background="@color/white"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        />
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp">
 
-    <TextView
-        android:id="@+id/txtArticle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="@string/article_text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:background="@color/white"/>
+
+
+            <TextView
+                android:id="@+id/txtArticle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/article_text"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <com.example.sonel.newyorktimessearch.search.ResizableImageView
+                android:id="@+id/imArticle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 </LinearLayout>

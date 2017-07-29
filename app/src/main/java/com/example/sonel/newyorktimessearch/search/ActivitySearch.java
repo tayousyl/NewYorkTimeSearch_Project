@@ -1,14 +1,26 @@
 package com.example.sonel.newyorktimessearch.search;
 
+
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.sonel.newyorktimessearch.Modele.Article;
@@ -58,7 +70,7 @@ public class ActivitySearch extends AppCompatActivity {
     ArrayList<Article> articles;
     RecyclerViewArticleAdapter mRecyclerViewArticleAdapter;
 
-    enum SortOrder {
+    public enum SortOrder {
         NEWEST("newest"), OLDEST("oldest");
 
         private String sortOrder;
@@ -70,7 +82,7 @@ public class ActivitySearch extends AppCompatActivity {
         }
     }
 
-    enum NewsDesk {
+    public enum NewsDesk {
         ARTS("Arts"), FASHION_AND_STYLE("Fashion & Style"), SPORTS("Sports");
 
         private String newsDesk;
@@ -94,6 +106,7 @@ public class ActivitySearch extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +114,7 @@ public class ActivitySearch extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        setTitle("News Article Search");
+        setTitle("Search Article");
 
         articles = new ArrayList<>();
         mRecyclerViewArticleAdapter = new RecyclerViewArticleAdapter(this, articles);
@@ -110,6 +123,12 @@ public class ActivitySearch extends AppCompatActivity {
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+
+        articlesRecyclerView.addItemDecoration(new DividerItemDecoration(this, gridLayoutManager.VERTICAL));
+        articlesRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+
         articlesRecyclerView.addOnScrollListener(
                 new EndlessRecyclerViewScrollListener(gridLayoutManager) {
                     @Override
@@ -119,6 +138,7 @@ public class ActivitySearch extends AppCompatActivity {
                         customLoadMoreDataFromApi(page);
                     }
                 });
+
 
 //        articlesRecyclerView.addItemDecoration(
 //                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -140,6 +160,55 @@ public class ActivitySearch extends AppCompatActivity {
             searchArticle(cachedQueryString, 0);
         }
     }
+
+    /**
+     * RecyclerView item decoration - give equal margin around grid item
+     */
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration{
+//                new DividerItemDecoration(t {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing; // item bottom
+            } else {
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing; // item top
+                }
+            }
+        }
+    }
+
+    /**
+     * Converting dp to pixel
+     */
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+
 
     //TODO implement this
     // Append more data into the adapter
@@ -216,16 +285,16 @@ public class ActivitySearch extends AppCompatActivity {
         });
     }
 
-   /* public void reSearch() {
+    public void reSearch() {
         articles.clear();
-        mComplexRecyclerViewArticleAdapter.notifyDataSetChanged();
+        mRecyclerViewArticleAdapter.notifyDataSetChanged();
         searchArticle(cachedQueryString, 0);
-    }*/
+    }
 
- /*   @Override
+   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
 
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
@@ -239,7 +308,7 @@ public class ActivitySearch extends AppCompatActivity {
                 // see https://code.google.com/p/android/issues/detail?id=24599
 
                 articles.clear();
-                mComplexRecyclerViewArticleAdapter.notifyDataSetChanged();
+                mRecyclerViewArticleAdapter.notifyDataSetChanged();
                 cachedQueryString = query;
                 searchArticle(query, 0);
                 searchView.clearFocus();
@@ -252,14 +321,14 @@ public class ActivitySearch extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
-    }*/
+    }
 
-/*    @Override
+   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
+//Search Filter Articles
         int id = item.getItemId();
         if (id == R.id.action_search_filter) {
             launchFilterDialog();
@@ -267,11 +336,12 @@ public class ActivitySearch extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void launchFilterDialog() {
+    // FIXME: 7/27/2017 load filter Search Article
+  public void launchFilterDialog() {
         SearchFilterFragment searchFilterDialog = new SearchFilterFragment();
         FragmentManager fm = getSupportFragmentManager();
         searchFilterDialog.show(fm, "filter");
-    }*/
+    }
 
     public RequestParams constructQueryRequestParams(String searchText, int pageNumber) {
         RequestParams requestParams = new RequestParams();
@@ -330,5 +400,7 @@ public class ActivitySearch extends AppCompatActivity {
         super.onResume();
         setTitle("News Article Search");
     }
+
+
 
 }

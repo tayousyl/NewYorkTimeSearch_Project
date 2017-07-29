@@ -33,6 +33,7 @@ public class RecyclerViewArticleAdapter extends RecyclerView.Adapter<RecyclerVie
         mContext = context;
     }
 
+
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
@@ -107,5 +108,6 @@ public class RecyclerViewArticleAdapter extends RecyclerView.Adapter<RecyclerVie
         }
         viewHolder.txtArticle.setText(article.getHeadline().getMain());
     }
+
 
 }

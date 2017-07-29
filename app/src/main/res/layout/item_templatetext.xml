@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="2dp">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp"
+        >
     <TextView
         android:id="@+id/txtArticleText"
         android:layout_width="wrap_content"
@@ -13,5 +23,6 @@
         android:text="@string/article_text"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:background="@color/white"/>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
