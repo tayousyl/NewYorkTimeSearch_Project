@@ -1,10 +1,13 @@
 package com.example.sonel.newyorktimessearch.Modele;
 
+import com.example.sonel.newyorktimessearch.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.util.TextUtils;
 
 /**
  * Created by sonel on 7/26/2017.
@@ -17,6 +20,8 @@ public class Article {
     public final static String THUMBNAIL_TYPE = "thumbnail";
     public final static String NYTIMES_BASE_URI = "http://www.nytimes.com/";
     public final static String URL = "url";
+
+    public int color;
 
     @SerializedName("web_url")
     @Expose
@@ -56,7 +61,7 @@ public class Article {
     private String documentType;
     @SerializedName("news_desk")
     @Expose
-    private String newsDesk;
+    public String newsDesk;
     @SerializedName("section_name")
     @Expose
     private String sectionName;
@@ -78,6 +83,7 @@ public class Article {
     @SerializedName("slideshow_credits")
     @Expose
     private Object slideshowCredits;
+
 
     /**
      *
@@ -301,6 +307,7 @@ public class Article {
      *     The newsDesk
      */
     public String getNewsDesk() {
+
         return newsDesk;
     }
 
@@ -445,11 +452,32 @@ public class Article {
         for (Multimedium m : this.getMultimedia()) {
             if (m.getType().equals(IMAGE) && m.getSubtype().equals("xlarge")) {
                 thumbnailUrl = NYTIMES_BASE_URI + m.getUrl();
+                setcolor();
                 break;
             }
         }
         return thumbnailUrl;
     }
+    public void setcolor(){
 
+        if (!TextUtils.isEmpty(newsDesk)){
+            if(newsDesk.equalsIgnoreCase("Arts")){
+
+             color= R.color.colorPrimary;
+            }
+            if(newsDesk.equalsIgnoreCase("Fashion & Style")){
+
+                color= R.color.grey_300;
+            }
+           else if(newsDesk.equalsIgnoreCase("Sports")){
+
+                color= R.color.black;
+            }
+            else {
+                color= R.color.green;
+            }
+        }
+
+    }
 
 }

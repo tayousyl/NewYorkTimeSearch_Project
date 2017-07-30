@@ -58,4 +58,6 @@ class TextArticleViewHolder extends RecyclerView.ViewHolder
         this.txtArticleText = txtArticleText;
     }
 
+
+
 }

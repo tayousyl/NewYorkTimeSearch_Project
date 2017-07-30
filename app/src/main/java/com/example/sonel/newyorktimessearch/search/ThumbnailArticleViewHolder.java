@@ -27,6 +27,8 @@ public class ThumbnailArticleViewHolder extends RecyclerView.ViewHolder
     ImageView imArticle;
     @Bind(R.id.txtArticle)
     TextView txtArticle;
+    @Bind(R.id.txttype)
+    TextView txttype;
     List<Article> articles;
     Context mContext;
 
@@ -67,6 +69,13 @@ public class ThumbnailArticleViewHolder extends RecyclerView.ViewHolder
 
     public void setTvArticle(TextView tvArticle) {
         this.txtArticle = tvArticle;
+    }
+
+    public TextView getTxttype(){
+        return txttype;
+    }
+    public void setTxttype(TextView txtype){
+        this.txttype=txtype;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.sonel.newyorktimessearch.search;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -94,6 +95,7 @@ public class RecyclerViewArticleAdapter extends RecyclerView.Adapter<RecyclerVie
     private void configureTextArticleViewHolder(TextArticleViewHolder viewHolder, int position) {
         Article article = articles.get(position);
         viewHolder.txtArticleText.setText(article.getHeadline().getMain());
+
     }
 
     private void configureThumbnailArticleViewHolder(ThumbnailArticleViewHolder viewHolder,
@@ -107,6 +109,10 @@ public class RecyclerViewArticleAdapter extends RecyclerView.Adapter<RecyclerVie
                     .into(viewHolder.imArticle);
         }
         viewHolder.txtArticle.setText(article.getHeadline().getMain());
+        viewHolder.txttype.setText(article.getNewsDesk());
+       if (!TextUtils.isEmpty(article.newsDesk)) {
+            viewHolder.txttype.setBackgroundColor(ContextCompat.getColor(mContext,article.color));
+        }
     }
 
 

@@ -14,6 +14,7 @@
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="10dp"
         >
+
     <TextView
         android:id="@+id/txtArticleText"
         android:layout_width="wrap_content"

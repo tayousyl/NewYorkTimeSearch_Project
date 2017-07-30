@@ -25,21 +25,38 @@
         card_view:contentPadding="10dp">
 
 
-
             <TextView
                 android:id="@+id/txtArticle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="4"
                 android:text="@string/article_text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/txttype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="70dp"
+            android:background="@color/white"
+            android:paddingBottom="3dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:paddingTop="3dp"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            android:text="newDesk"
+            />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="120dp"
             android:orientation="horizontal">
 
             <com.example.sonel.newyorktimessearch.search.ResizableImageView
