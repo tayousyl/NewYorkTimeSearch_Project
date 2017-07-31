@@ -39,6 +39,11 @@ Here's a walkthrough of implemented user stories:
 <a href='http://i.imgur.com/cjDy3ia.gif'>Video Walkthrough direct link</a>
 
 <img src='http://i.imgur.com/cjDy3ia.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/BSjdzvD.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+
+<img src='C:\Users\sonel\AndroidStudioProjects\NewYorkTimesSearch\Image_Asset\NYT_Project.gif - Shortcut (2).lnk' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
